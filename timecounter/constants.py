@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 DATA_DIR = Path(__file__).resolve().parent.parent / "TimeCounterData"
 PIE_CHART_COLORS = ["#005F73", "#EE6C4D", "#FFB703", "#2A9D8F", "#9B2226"]
 INPUT_COLUMNS = [
