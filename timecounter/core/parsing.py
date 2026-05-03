@@ -48,6 +48,16 @@ def build_template_frame() -> pd.DataFrame:
         ["2026-W15", "2026-04-07", "Dienstag", 210, 3, "Safari", 35],
         ["2026-W15", "2026-04-07", "Dienstag", 210, 4, "Moodle", 28],
         ["2026-W15", "2026-04-07", "Dienstag", 210, 5, "Spotify", 20],
+        ["2026-W15", "2026-04-07", "Dienstag", 210, 1, "YouTube", 50],
+        ["2026-W15", "2026-04-07", "Dienstag", 210, 2, "WhatsApp", 40],
+        ["2026-W15", "2026-04-07", "Dienstag", 210, 3, "Safari", 35],
+        ["2026-W15", "2026-04-07", "Dienstag", 210, 4, "Moodle", 28],
+        ["2026-W15", "2026-04-07", "Dienstag", 210, 5, "Spotify", 20],
+        ["2026-W15", "2026-04-07", "Dienstag", 210, 1, "YouTube", 50],
+        ["2026-W15", "2026-04-07", "Dienstag", 210, 2, "WhatsApp", 40],
+        ["2026-W15", "2026-04-07", "Dienstag", 210, 3, "Safari", 35],
+        ["2026-W15", "2026-04-07", "Dienstag", 210, 4, "Moodle", 28],
+        ["2026-W15", "2026-04-07", "Dienstag", 210, 5, "Spotify", 20],
     ]
     return pd.DataFrame(rows, columns=INPUT_COLUMNS)
 
