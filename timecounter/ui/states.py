@@ -1,23 +1,22 @@
 import pandas as pd
 import streamlit as st
 
-from timecounter.data.build_template_frame import build_template_frame
-from timecounter.data.parse_data import parse_data
+from timecounter.core import build_template_frame, parse_data
 
 
 def render_empty_state() -> pd.DataFrame:
     template_frame = build_template_frame()
     st.warning(
-        "Noch keine CSV-Dateien geladen. Die App zeigt deshalb zunaechst die eingebauten Beispieldaten an."
+        "Noch keine CSV-Dateien geladen. Die App zeigt deshalb zunächst die schon eingebauten Beispieldaten an."
     )
-    st.subheader("So erstellen Sie Ihre eigenen CSV-Dateien")
+    st.subheader("So können Sie Ihre eigenen CSV-Dateien erstellen :")
     st.markdown(
         """
-1. Erstellen Sie pro Woche eine eigene CSV-Datei.
+1. Erstellen Sie eine eigene CSV-Datei.
 2. Erfassen Sie mindestens drei verschiedene Tage dieser Woche.
-3. Schreiben Sie pro Tag genau fuenf Zeilen, eine pro Top-App.
+3. Schreiben Sie pro Tag genau fünf Zeilen, eine pro Top-App.
 4. Verwenden Sie Minuten als Zahlen ohne Einheiten.
-5. `weekly_app_minutes` und `weekly_total_minutes` werden automatisch berechnet.
+** `weekly_app_minutes` und `weekly_total_minutes` werden automatisch berechnet.
         """
     )
     st.subheader("Tabellenvorlage")

@@ -5,7 +5,7 @@ Diese Streamlit-App visualisiert die Bildschirmzeit eines Haupt-Smartdevices ueb
 ## Start
 
 ```bash
-./.venv/bin/streamlit run timecounter/TimeCounterApp.py
+./.venv/bin/streamlit run timecounter/app.py
 ```
 
 Oder direkt ueber das Startskript:
@@ -17,7 +17,7 @@ Oder direkt ueber das Startskript:
 Alternativ, falls Ihre virtuelle Umgebung bereits aktiviert ist:
 
 ```bash
-streamlit run timecounter/TimeCounterApp.py
+streamlit run timecounter/app.py
 ```
 
 Falls im ausgewaehlten Interpreter noch Pakete fehlen:

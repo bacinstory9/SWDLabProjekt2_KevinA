@@ -3,19 +3,11 @@ import pandas as pd
 from timecounter.constants import INPUT_COLUMNS
 
 
+def has_required_columns(frame: pd.DataFrame) -> bool:
+    return set(INPUT_COLUMNS).issubset(frame.columns)
+
+
 def validate_frame(frame: pd.DataFrame, source_name: str) -> list[str]:
-    """
-Argumente:
-    frame (pd.DataFrame):
-        Eingelesene CSV-Daten
-    source_name (str):
-        Name der Datei
-
-Rückgabe:
-    list[str]:
-        Liste von Fehler- oder Warnmeldungen
-    """
-
     issues: list[str] = []
     missing = [column for column in INPUT_COLUMNS if column not in frame.columns]
     if missing:

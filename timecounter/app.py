@@ -1,7 +1,15 @@
+import sys
+from pathlib import Path
+
 import streamlit as st
 
+if __package__ in (None, ""):
+    project_root = Path(__file__).resolve().parent.parent
+    if str(project_root) not in sys.path:
+        sys.path.insert(0, str(project_root))
+
 from timecounter.constants import DATA_DIR
-from timecounter.data import (
+from timecounter.core import (
     build_daily_totals,
     build_stats_table,
     build_week_selector_options,
@@ -28,7 +36,7 @@ def main() -> None:
     st.title("Bildschirmzeit im Semester")
     st.caption("Kevin Alessander - DS")
     st.caption(
-        "Visualisierung der woechentlichen Bildschirmzeit inklusive Tageswerten und Top-5-Apps."
+        "Visualisierung der wöchentlichen Bildschirmzeit inklusive Tageswerten und Top-5-Apps."
     )
 
     with st.sidebar:
@@ -37,7 +45,7 @@ def main() -> None:
             "CSV-Dateien hochladen",
             type="csv",
             accept_multiple_files=True,
-            help="Sie koennen eine oder mehrere Wochen-Dateien direkt hochladen.",
+            help="Sie können eine oder mehrere Wochen-Dateien direkt hochladen.",
         )
 
     data, warnings, loaded_files, errors = read_weekly_csvs(DATA_DIR, uploaded_files)
@@ -47,14 +55,16 @@ def main() -> None:
 
     if data.empty:
         data = render_empty_state()
-        loaded_files = ["Eingebautes Beispiel aus timecounter/TimeCounterApp.py"]
+        loaded_files = ["Eingebautes Beispiel"]
 
     for warning in warnings:
         st.warning(warning)
 
     data = data.dropna(subset=["day_date", "week_start"])
     if data.empty:
-        st.error("Die geladenen Dateien enthalten keine gueltigen Datumswerte fuer 'day_date'.")
+        st.error(
+            "Die geladenen Dateien enthalten keine gueltigen Datumswerte für 'day_date'."
+        )
         render_empty_state()
         st.stop()
 
@@ -66,21 +76,20 @@ def main() -> None:
             "Wochen anzeigen",
             options=available_week_labels,
             default=available_week_labels,
-            help="Waehlen Sie die Wochen aus, die in allen Diagrammen angezeigt werden sollen.",
+            help="Wählen Sie die Wochen aus, die in allen Diagrammen angezeigt werden sollen.",
         )
         available_apps = sorted(data["app_name"].dropna().unique().tolist())
         selected_apps = st.multiselect(
-            "Apps fuer den Verlauf",
+            "Apps für den Verlauf",
             options=available_apps,
             default=available_apps,
         )
         st.markdown("**Geladene Dateien**")
         for file_name in loaded_files:
             st.write(file_name)
-        st.caption("Sie koennen Dateien hochladen oder dauerhaft in 'TimeCounterData/' speichern.")
 
     if not selected_week_labels:
-        st.info("Waehlen Sie in der Sidebar mindestens eine Woche aus.")
+        st.info("Wählen Sie in der Sidebar mindestens eine Woche aus.")
         st.stop()
 
     filtered_data = filter_by_week_labels(data, selected_week_labels)
@@ -96,9 +105,15 @@ def main() -> None:
 
     metric_columns = st.columns(4)
     metric_columns[0].metric("Wochen gesamt", str(len(weekly_totals)))
-    metric_columns[1].metric("Durchschnitt / Woche", format_minutes(weekly_totals["minutes"].mean()))
-    metric_columns[2].metric("Maximale Woche", format_minutes(weekly_totals["minutes"].max()))
-    metric_columns[3].metric("Durchschnitt / Tag", format_minutes(daily_totals["minutes"].mean()))
+    metric_columns[1].metric(
+        "Durchschnitt / Woche", format_minutes(weekly_totals["minutes"].mean())
+    )
+    metric_columns[2].metric(
+        "Maximale Woche", format_minutes(weekly_totals["minutes"].max())
+    )
+    metric_columns[3].metric(
+        "Durchschnitt / Tag", format_minutes(daily_totals["minutes"].mean())
+    )
 
     left_col, right_col = st.columns([1.7, 1])
 
@@ -122,7 +137,7 @@ def main() -> None:
             .sort_index()
         )
     else:
-        st.info("Waehlen Sie in der Sidebar mindestens eine App aus.")
+        st.info("Wählen Sie in der Sidebar mindestens eine App aus.")
 
     week_options = weekly_totals.sort_values("week_start")["week_label"].tolist()
     selected_week_label = st.select_slider(
@@ -131,17 +146,19 @@ def main() -> None:
         value=week_options[-1],
     )
 
-    selected_week_data = filtered_data[filtered_data["week_label"] == selected_week_label]
+    selected_week_data = filtered_data[
+        filtered_data["week_label"] == selected_week_label
+    ]
     selected_week_daily = build_daily_totals(selected_week_data)
     selected_week_apps = build_weekly_app_totals(selected_week_data)
     detail_col_1, detail_col_2 = st.columns(2)
 
     with detail_col_1:
-        st.subheader("Tageswerte der ausgewaehlten Woche")
+        st.subheader("Tageswerte der ausgewählten Woche")
         render_daily_totals_chart(selected_week_daily)
 
     with detail_col_2:
-        st.subheader("Top-5-Apps der ausgewaehlten Woche")
+        st.subheader("Top-5-Apps der ausgewählten Woche")
         render_weekly_share_chart(selected_week_apps)
         st.dataframe(
             selected_week_apps.loc[:, ["app_name", "weekly_app_minutes"]].rename(
@@ -162,3 +179,7 @@ def main() -> None:
         hide_index=True,
         use_container_width=True,
     )
+
+
+if __name__ == "__main__":
+    main()
