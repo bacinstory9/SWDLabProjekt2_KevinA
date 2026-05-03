@@ -12,31 +12,39 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-if __package__ in (None, ""):
+
+def _ensure_project_root_on_path() -> None:
+    """Ergaenzt das Projektverzeichnis fuer direkte Script-Starts im Importpfad."""
+    if __package__ not in (None, ""):
+        return
+
     project_root = Path(__file__).resolve().parent.parent
     if str(project_root) not in sys.path:
         sys.path.insert(0, str(project_root))
 
-from timecounter.constants_and_colour import DATA_DIR
-from timecounter.core import (
-    build_daily_totals,
-    build_stats_table,
-    build_week_selector_options,
-    build_weekly_app_totals,
-    build_weekly_totals,
-    filter_by_week_labels,
-    format_minutes,
-    read_weekly_csvs,
-)
-from timecounter.ui import (
-    render_daily_totals_chart,
-    render_empty_state,
-    render_weekly_share_chart,
-)
+
+_ensure_project_root_on_path()
 
 
 def main() -> None:
     """Baut die App-Oberfläche (UI) auf und verbindet die Datenquelle mit Auswertungen/Analysen."""
+    from timecounter.constants_and_colour import DATA_DIR
+    from timecounter.core import (
+        build_daily_totals,
+        build_stats_table,
+        build_week_selector_options,
+        build_weekly_app_totals,
+        build_weekly_totals,
+        filter_by_week_labels,
+        format_minutes,
+        read_weekly_csvs,
+    )
+    from timecounter.ui import (
+        render_daily_totals_chart,
+        render_empty_state,
+        render_weekly_share_chart,
+    )
+
     logger.info("Starte Bildschirmzeit-App.")
     st.set_page_config(
         page_title="Bildschirmzeit im Semester",
@@ -85,7 +93,9 @@ def main() -> None:
         st.error(error)
 
     if data.empty:
-        logger.info("Keine Nutzdaten gefunden. Wechsle auf eingebauten Beispieldatensatz.")
+        logger.info(
+            "Keine Nutzdaten gefunden. Wechsle auf eingebauten Beispieldatensatz."
+        )
         data = render_empty_state()
         loaded_files = ["Eingebautes Beispiel"]
 
@@ -180,7 +190,9 @@ def main() -> None:
 
     st.subheader("Verlauf nach App")
     if selected_apps:
-        logger.info("App-Verlauf mit %s ausgewählten Apps wird angezeigt.", len(selected_apps))
+        logger.info(
+            "App-Verlauf mit %s ausgewählten Apps wird angezeigt.", len(selected_apps)
+        )
         st.line_chart(
             weekly_app_totals[weekly_app_totals["app_name"].isin(selected_apps)]
             .pivot(index="week_start", columns="app_name", values="weekly_app_minutes")
