@@ -2,8 +2,8 @@ from pathlib import Path
 
 import pandas as pd
 
-from timecounter.constants import CALCULATED_COLUMNS, INPUT_COLUMNS
-from timecounter.core.validation import has_required_columns, validate_frame
+from timecounter.constants_and_colour import CALCULATED_COLUMNS, INPUT_COLUMNS
+from timecounter.core.error_handling import has_required_columns, validate_frame
 
 
 def add_calculated_columns(frame: pd.DataFrame) -> pd.DataFrame:

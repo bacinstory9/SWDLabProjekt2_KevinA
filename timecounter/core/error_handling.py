@@ -1,6 +1,6 @@
 import pandas as pd
 
-from timecounter.constants import INPUT_COLUMNS
+from timecounter.constants_and_colour import INPUT_COLUMNS
 
 
 def has_required_columns(frame: pd.DataFrame) -> bool:

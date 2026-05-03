@@ -1,5 +1,5 @@
 from .parsing import build_template_frame, parse_data, read_weekly_csvs
-from .totals import (
+from .data_display import (
     build_daily_totals,
     build_stats_table,
     build_weekly_app_totals,
@@ -7,8 +7,8 @@ from .totals import (
     build_weekly_totals,
     format_minutes,
 )
-from .validation import has_required_columns, validate_frame
-from .weekly import build_week_selector_options, filter_by_week_labels
+from .error_handling import has_required_columns, validate_frame
+from .weekly_functions import build_week_selector_options, filter_by_week_labels
 
 __all__ = [
     "build_daily_totals",

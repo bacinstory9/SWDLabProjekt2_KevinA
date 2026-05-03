@@ -2,7 +2,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-from timecounter.constants import PIE_CHART_COLORS
+from timecounter.constants_and_colour import PIE_CHART_COLORS
 from timecounter.core import build_weekly_share_chart_data
 
 

@@ -8,7 +8,7 @@ if __package__ in (None, ""):
     if str(project_root) not in sys.path:
         sys.path.insert(0, str(project_root))
 
-from timecounter.constants import DATA_DIR
+from timecounter.constants_and_colour import DATA_DIR
 from timecounter.core import (
     build_daily_totals,
     build_stats_table,
@@ -95,7 +95,7 @@ def main() -> None:
     filtered_data = filter_by_week_labels(data, selected_week_labels)
 
     if filtered_data.empty:
-        st.info("Fuer die ausgewaehlten Wochen sind keine Daten vorhanden.")
+        st.info("Für die ausgewählten Wochen sind keine Daten vorhanden.")
         st.stop()
 
     weekly_totals = build_weekly_totals(filtered_data)
@@ -141,7 +141,7 @@ def main() -> None:
 
     week_options = weekly_totals.sort_values("week_start")["week_label"].tolist()
     selected_week_label = st.select_slider(
-        "Detailansicht fuer eine Woche",
+        "Detailansicht für eine Woche",
         options=week_options,
         value=week_options[-1],
     )
