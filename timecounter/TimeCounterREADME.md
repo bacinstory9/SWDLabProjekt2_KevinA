@@ -1,4 +1,5 @@
 # TimeCounter Bildschirmzeit-App
+Hi hi from Kevin
 
 Diese Streamlit-App visualisiert die Bildschirmzeit eines Haupt-Smartdevices ueber mehrere Semesterwochen.
 

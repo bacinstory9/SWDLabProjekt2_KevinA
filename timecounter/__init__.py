@@ -1,1 +1,3 @@
-__all__ = ["app", "constants_and_colour.py", "core", "ui"]
+"""Package für die Streamlit-App zur Auswertung von Bildschirmzeitdaten."""
+
+__all__ = ["app", "constants_and_colour", "core", "ui"]

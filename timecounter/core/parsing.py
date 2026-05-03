@@ -1,3 +1,5 @@
+"""Hilfsfunktionen zum Einlesen, Anreichern und Zusammenführen der CSV-Daten."""
+
 from pathlib import Path
 
 import pandas as pd
@@ -7,6 +9,7 @@ from timecounter.core.error_handling import has_required_columns, validate_frame
 
 
 def add_calculated_columns(frame: pd.DataFrame) -> pd.DataFrame:
+    """Ergänzt eine Rohdatentabelle um berechnete Wochenwerte pro App und Woche."""
     data = frame.copy()
     data["day_date"] = pd.to_datetime(data["day_date"], errors="coerce")
     data["daily_total_minutes"] = pd.to_numeric(
@@ -42,6 +45,7 @@ def add_calculated_columns(frame: pd.DataFrame) -> pd.DataFrame:
 
 
 def build_template_frame() -> pd.DataFrame:
+    """Erzeugt einen kleinen Beispieldatensatz für den leeren Anfangszustand."""
     rows = [
         ["2026-W15", "2026-04-07", "Dienstag", 210, 1, "YouTube", 50],
         ["2026-W15", "2026-04-07", "Dienstag", 210, 2, "WhatsApp", 40],
@@ -63,6 +67,7 @@ def build_template_frame() -> pd.DataFrame:
 
 
 def parse_data(frames: list[pd.DataFrame]) -> pd.DataFrame:
+    """Führt mehrere Datentabellen zusammen und normalisiert ihre Datentypen (zu einer gleichen Dateneinheit bringen)."""
     data = pd.concat(
         [add_calculated_columns(frame) for frame in frames], ignore_index=True
     )
@@ -87,6 +92,10 @@ def parse_data(frames: list[pd.DataFrame]) -> pd.DataFrame:
 def read_weekly_csvs(
     data_dir: Path, uploaded_files
 ) -> tuple[pd.DataFrame, list[str], list[str], list[str]]:
+    """
+    Error Handling für CSV Daten;
+    Lädt CSV-Dateien aus Ordner oder Upload und gibt Daten, Hinweise und Fehler, falls da, zurück.
+    """
     csv_files = sorted(data_dir.glob("*.csv")) if data_dir.exists() else []
     uploaded_files = uploaded_files or []
     if not csv_files and not uploaded_files:

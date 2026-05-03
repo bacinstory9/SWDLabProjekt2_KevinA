@@ -1,3 +1,5 @@
+"""Rendert die Diagramme der Streamlit-Oberflaeche."""
+
 import altair as alt
 import pandas as pd
 import streamlit as st
@@ -7,6 +9,7 @@ from timecounter.core import build_weekly_share_chart_data
 
 
 def render_daily_totals_chart(daily_totals: pd.DataFrame) -> None:
+    """Zeigt die Tageswerte der ausgewaehlten Daten als Balkendiagramm an."""
     chart_data = daily_totals.copy()
     chart_data["day_label"] = chart_data["day_date"].dt.strftime("%d.%m.%Y")
 
@@ -26,6 +29,7 @@ def render_daily_totals_chart(daily_totals: pd.DataFrame) -> None:
 
 
 def render_weekly_share_chart(weekly_app_totals: pd.DataFrame) -> None:
+    """Zeigt die Verteilung der Wochenminuten pro App als Kreisdiagramm an."""
     chart_data = build_weekly_share_chart_data(weekly_app_totals)
     share_chart = (
         alt.Chart(chart_data)

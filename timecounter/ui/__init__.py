@@ -1,3 +1,5 @@
+"""Exportiert die UI-Helfer fuer Diagramme und leere Zustandsansichten."""
+
 from .charts import render_daily_totals_chart, render_weekly_share_chart
 from .states import render_empty_state
 

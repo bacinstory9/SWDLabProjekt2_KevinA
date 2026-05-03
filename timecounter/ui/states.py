@@ -1,3 +1,5 @@
+"""Rendert alternative UI-Zustaende wie den leeren Start ohne Nutzerdaten."""
+
 import pandas as pd
 import streamlit as st
 
@@ -5,6 +7,7 @@ from timecounter.core import build_template_frame, parse_data
 
 
 def render_empty_state() -> pd.DataFrame:
+    """Zeigt Beispiel- und Hilfsdaten an, wenn noch keine CSV-Dateien geladen wurden."""
     template_frame = build_template_frame()
     st.warning(
         "Noch keine CSV-Dateien geladen. Die App zeigt deshalb zunächst die schon eingebauten Beispieldaten an."

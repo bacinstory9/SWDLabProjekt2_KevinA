@@ -1,3 +1,5 @@
+"""Startet die Streamlit-Oberfläche (UI) für die Bildschirmzeit-Analyse."""
+
 import sys
 from pathlib import Path
 
@@ -27,6 +29,7 @@ from timecounter.ui import (
 
 
 def main() -> None:
+    """Baut die App-Oberfläche (UI) auf und verbindet die Datenquelle mit Auswertungen/Analysen."""
     st.set_page_config(
         page_title="Bildschirmzeit im Semester",
         page_icon=":bar_chart:",

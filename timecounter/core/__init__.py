@@ -1,3 +1,5 @@
+"""Sammelt die Kernfunktionen für Parsing, Validierung (Error Handling) und Diagrammendarstelung (Daten Display)."""
+
 from .parsing import build_template_frame, parse_data, read_weekly_csvs
 from .data_display import (
     build_daily_totals,
