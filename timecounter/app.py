@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 def _ensure_project_root_on_path() -> None:
-    """Ergänzt das Projektverzeichnis fuer direkte Script-Starts im Importpfad."""
+    """Ergänzt das Projektverzeichnis für direkte Script-Starts im Importpfad."""
     if __package__ not in (None, ""):
         return
 
