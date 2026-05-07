@@ -1,4 +1,4 @@
-"""Hilfsfunktionen für Wochenauswahl und Filterlogik."""
+"""Hilfsfunktionen für Wochenauswahl (am Rand / Sidebar) und Filterlogik."""
 
 import pandas as pd
 
@@ -14,5 +14,5 @@ def build_week_selector_options(data: pd.DataFrame) -> list[str]:
 
 
 def filter_by_week_labels(data: pd.DataFrame, week_labels: list[str]) -> pd.DataFrame:
-    """Filter die Daten auf die ausgewählten Wochenlabels, schreib das enstsprechende Datum für jede."""
+    """Filter die Daten auf die ausgewählten Wochenlabels, schreib das entsprechende Datum für jede."""
     return data[data["week_label"].isin(week_labels)]

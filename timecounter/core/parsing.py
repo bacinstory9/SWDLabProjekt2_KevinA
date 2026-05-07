@@ -94,7 +94,7 @@ def read_weekly_csvs(
 ) -> tuple[pd.DataFrame, list[str], list[str], list[str]]:
     """
     Error Handling für CSV Daten;
-    Lädt CSV-Dateien aus Ordner oder Upload und gibt Daten, Hinweise und Fehler, falls da, zurück.
+    Läden CSV-Dateien aus Ordner oder Upload und gibt Daten, Hinweise und Fehler, falls da, zurück.
     """
     csv_files = sorted(data_dir.glob("*.csv")) if data_dir.exists() else []
     uploaded_files = uploaded_files or []
